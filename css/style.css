@@ -34,13 +34,13 @@ button:active{
 }
 
 #CardLay{
-position: relative;
-margin: auto
+position: absolute;
+width: 90vw;
+height: 20vw;
+top: 30vw;
 }
 
 #Card{
-    position: absolute;
-    width: 15%;
-    height: width*1.452;
-    
+    position: relative;
+    width: 10vw;
 }

@@ -4,8 +4,6 @@ class Card{
         this.suit = suit;
         this.value = value;
     }
-
-
 }
 
 class Deck{
@@ -66,10 +64,29 @@ function createDeck(){
 function hit(){
     let card = deck.draw();
     let cardLay = document.getElementById("CardLay");
+    let div = document.createElement("div");
     let img = document.createElement("img");
+    div.appendChild(img)
     img.src = "images/cards/"+card.suit+card.value+".png";
     img.id = "Card";
-    cardLay.appendChild(img);
+    cardLay.appendChild(div);
+    orderCardLay();
+}
+
+function orderCardLay(){
+    let cardLay = document.getElementById("CardLay");
+    let cardList = cardLay.children;
+    for(let i = 0; i<cardList.length; i++){
+        let card = cardList[i];
+        console.log(card);
+        card.id = "card"+i;
+        let _card = document.getElementById("card"+i);
+        _card.style.position = "absolute";
+        _card.style.width = "10vw";
+        let leftOffSet = ((i+1)/(cardList.length+1)*100)-10;
+        _card.style.top = "20vw";
+        _card.style.left = leftOffSet+"vw";
+    }
 }
 
 let deck = createDeck();
