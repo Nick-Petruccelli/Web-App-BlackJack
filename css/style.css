@@ -22,6 +22,21 @@ button:active{
     background: burlywood;
 }
 
+#PlayerHand{
+    position: absolute;
+    height: 14.52vw;
+    width: 20vw;
+    bottom: 10vh;
+    left: 35vw;
+}
+#DealerHand{
+    position: absolute;
+    height: 14.52vw;
+    width: 20vw;
+    top: 5vh;
+    left: 35vw;
+}
+
 #Hit{
     position: absolute;
     bottom: 0;
@@ -34,13 +49,15 @@ button:active{
 }
 
 #CardLay{
-position: relative;
-margin: auto
+position: absolute;
+width: 90vw;
+height: 14.52vw;
+top: 50vh;
 }
 
 #Card{
     position: absolute;
-    width: 15%;
-    height: width*1.452;
+    width: 10vw;
+    height: 14.52vw;
     
 }

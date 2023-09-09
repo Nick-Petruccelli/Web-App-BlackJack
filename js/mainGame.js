@@ -56,7 +56,59 @@ class Deck{
 
 class BlackJackGame{
     constructor(deck){
-        
+        this.deck = deck;
+        this.playerHandValue = 0;
+        this.dealerHandValue = 0;
+        this.playerWins = 0;
+        this.dealerWins = 0;
+        this.dealersDownCard;
+    }
+
+    startGame(){
+        let playerHand = document.getElementById("PlayerHand");
+
+        for(let i = 0; i < 2; i++){
+            let card = this.deck.draw();
+            this.playerHandValue += card.value;
+            let div = document.createElement("div");
+            let img = document.createElement("img");
+            div.appendChild(img)
+            img.src = "images/cards/"+card.suit+card.value+".png";
+            img.id = "Card";
+            playerHand.appendChild(div);
+            div.style.position = "absolute";
+            div.style.width = "10vw";
+            div.style.height = "14.52vw";
+            let leftOffSet = (i/2)*100;
+            div.style.left = leftOffSet+"%";
+        }
+
+        let dealerHand = document.getElementById("DealerHand")
+        let card = this.deck.draw();
+        this.dealerHandValue += card.value;
+        let div = document.createElement("div");
+        let img = document.createElement("img");
+        div.appendChild(img)
+        img.src = "images/cards/"+card.suit+card.value+".png";
+        img.id = "Card";
+        dealerHand.appendChild(div);
+        div.style.position = "absolute";
+        div.style.width = "10vw";
+        div.style.height = "14.52vw";
+        div.style.left = "0";
+
+        card = this.deck.draw();
+        this.dealersDownCard = card;
+        div = document.createElement("div");
+        img = document.createElement("img");
+        div.appendChild(img)
+        img.src = "images/cards/back.png";
+        img.id = "Card";
+        dealerHand.appendChild(div);
+        div.style.position = "absolute";
+        div.style.width = "10vw";
+        div.style.height = "14.52vw";
+        div.style.left = "50%";
     }
 }
 
@@ -84,14 +136,15 @@ function orderCardLay(){
     let cardList = cardLay.children;
     for(let i = 0; i<cardList.length; i++){
         let card = cardList[i];
-        console.log(card);
         card.id = "card"+i;
         let _card = document.getElementById("card"+i);
         _card.style.position = "absolute";
         _card.style.width = "10vw";
+        _card.style.height = "14.52vw";
         let leftOffSet = ((i+1)/(cardList.length+1)*100)-10;
-        _card.style.top = "20vw";
         _card.style.left = leftOffSet+"vw";
     }
 }
 let deck = createDeck();
+let game = new BlackJackGame(deck);
+game.startGame();
