@@ -54,6 +54,12 @@ class Deck{
     }
 }
 
+class BlackJackGame{
+    constructor(deck){
+        
+    }
+}
+
 function createDeck(){
     let deck = new Deck();
     deck.instantiate();
@@ -88,5 +94,4 @@ function orderCardLay(){
         _card.style.left = leftOffSet+"vw";
     }
 }
-
 let deck = createDeck();
