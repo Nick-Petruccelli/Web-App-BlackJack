@@ -1,0 +1,46 @@
+#GameWindow{
+    width: 90vw;
+    height: 95vh;
+    border: 1px solid black;
+    margin: auto;
+    position: relative;
+}
+
+button{
+    font: inherit;
+    border: none;
+    cursor: pointer;
+    background: bisque;
+    text-align: center;
+    color: black;
+    font-size: xx-large;
+}
+button:hover{
+    background: wheat;
+}
+button:active{
+    background: burlywood;
+}
+
+#Hit{
+    position: absolute;
+    bottom: 0;
+    left: 40%;
+}
+#Stand{
+    position: absolute;
+    bottom: 0;
+    right: 40%;
+}
+
+#CardLay{
+position: relative;
+margin: auto
+}
+
+#Card{
+    position: absolute;
+    width: 15%;
+    height: width*1.452;
+    
+}
