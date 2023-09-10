@@ -63,6 +63,7 @@ class BlackJackGame{
         this.dealerHasBust = false;
         this.playerCards = [];
         this.dealersCards = [];
+        this.playersTurnOver = false;
         this.playerWins = 0;
         this.dealerWins = 0;
         this.dealersDownCard;
@@ -119,6 +120,9 @@ class BlackJackGame{
     }
 
     hit(){
+        if(this.playersTurnOver){
+            return void 0;
+        }
         let card = this.deck.draw();
         this.scorePlayerHand();
         this.playerCards.push(card);
@@ -134,6 +138,7 @@ class BlackJackGame{
     }
 
     stand(){
+        this.playersTurnOver = true;
         let downCardFace = document.getElementById("DealersDownCard").children[0];
         downCardFace.src = "images/cards/"+this.dealersDownCard.suit+this.dealersDownCard.value+".png";
 
@@ -299,7 +304,49 @@ class BlackJackGame{
         let leftOffSet = -(resultText.length/2)*6;
         result.style.marginLeft = leftOffSet+"px"
 
-        
+        let playAgainButton = document.createElement("button");
+        gameWindow.appendChild(playAgainButton);
+        playAgainButton.id = "PlayAgainButton";
+        playAgainButton.innerHTML = "Play Again";
+        playAgainButton.onclick = function() {game.replay()};
+    }
+
+    replay(){
+        this.playerHandValue = 0;
+        this.dealerHandValue = 0;
+        this.playerHasBust = false;
+        this.dealerHasBust = false;
+        this.playerCards = [];
+        this.dealersCards = [];
+        this.playersTurnOver = false;
+
+        let playersCardLay = document.getElementById("PlayerCardLay");
+        while(playersCardLay.firstChild){
+            playersCardLay.removeChild(playersCardLay.lastChild);
+        }
+
+        let playerHand = document.getElementById("PlayerHand");
+        while(playerHand.firstChild){
+            playerHand.removeChild(playerHand.lastChild);
+        }
+
+        let dealerCardLay = document.getElementById("DealerCardLay");
+        while(dealerCardLay.firstChild){
+            dealerCardLay.removeChild(dealerCardLay.lastChild);
+        }
+
+        let dealerHand = document.getElementById("DealerHand");
+        while(dealerHand.firstChild){
+            dealerHand.removeChild(dealerHand.lastChild);
+        }
+
+        let resultText = document.getElementById("ResultText");
+        resultText.remove();
+
+        let playAgainButton = document.getElementById("PlayAgainButton");
+        playAgainButton.remove();
+
+        this.startGame();
     }
 }
 

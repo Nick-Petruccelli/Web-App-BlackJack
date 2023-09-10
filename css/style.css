@@ -55,7 +55,7 @@ button:active{
     width: 90vw;
     height: 7.26vw;
     top: 25%;
-    }
+}
 
 #PlayerCardLay{
 position: absolute;
@@ -75,4 +75,11 @@ bottom: 30%;
     position: absolute;
     top: 40%;
     left: 50%;
+}
+
+#PlayAgainButton{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -70px;
 }
