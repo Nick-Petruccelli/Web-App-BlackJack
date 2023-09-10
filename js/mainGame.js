@@ -296,6 +296,13 @@ class BlackJackGame{
             resultText = document.createTextNode("Your hand has a higher value, you win!\n Do you want to play again?");
             this.playerWins++
         }
+
+        let playerWinText = document.getElementById("PlayerWins");
+        playerWinText.innerHTML = "Player Wins: "+this.playerWins;
+
+        let dealerWinText = document.getElementById("DealerWins");
+        dealerWinText.innerHTML = "Dealer Wins: "+this.dealerWins;
+
         let gameWindow = document.getElementById("GameWindow");
         let result = document.createElement("div");
         gameWindow.appendChild(result);
