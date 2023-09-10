@@ -59,6 +59,8 @@ class BlackJackGame{
         this.deck = deck;
         this.playerHandValue = 0;
         this.dealerHandValue = 0;
+        this.playerCards = [];
+        this.dealersCards = [];
         this.playerWins = 0;
         this.dealerWins = 0;
         this.dealersDownCard;
@@ -69,7 +71,8 @@ class BlackJackGame{
 
         for(let i = 0; i < 2; i++){
             let card = this.deck.draw();
-            this.playerHandValue += card.value;
+            this.playerCards.push(card);
+            game.scorePlayerHand();
             let div = document.createElement("div");
             let img = document.createElement("img");
             div.appendChild(img)
@@ -110,6 +113,74 @@ class BlackJackGame{
         div.style.height = "14.52vw";
         div.style.left = "50%";
     }
+
+    hit(){
+        let card = this.deck.draw();
+        this.scorePlayerHand();
+        this.playerCards.push(card);
+        game.scorePlayerHand();
+        let cardLay = document.getElementById("PlayerCardLay");
+        let div = document.createElement("div");
+        let img = document.createElement("img");
+        div.appendChild(img)
+        img.src = "images/cards/"+card.suit+card.value+".png";
+        img.id = "Card";
+        cardLay.appendChild(div);
+        game.orderPlayerCardLay();
+    }
+
+    stand(){
+        while(this.dealerHandValue <= 17){
+
+        }
+    }
+
+    orderPlayerCardLay(){
+        let cardLay = document.getElementById("PlayerCardLay");
+        let cardList = cardLay.children;
+        for(let i = 0; i<cardList.length; i++){
+            let card = cardList[i];
+            card.id = "card"+i;
+            let _card = document.getElementById("card"+i);
+            _card.style.position = "absolute";
+            _card.style.width = "10vw";
+            _card.style.height = "14.52vw";
+            let leftOffSet = ((i+1)/(cardList.length+1)*100)-10;
+            _card.style.left = leftOffSet+"vw";
+        }
+    }
+
+    scorePlayerHand(){
+        this.playerHandValue = 0;
+        for(let i = 0; i<this.playerCards.length; i++){
+            let cardValue = this.playerCards[i].value;
+            if(cardValue == 1){
+                this.playerHandValue += 11;
+            }else if(cardValue > 10){
+                this.playerHandValue += 10
+            }
+            else{
+                this.playerHandValue += cardValue;
+            }
+        }
+        if(this.playerHandValue > 21){
+            for(let i = 0; i<this.playerCards.length; i++){
+                let cardValue = this.playerCards[i].value;
+                if(cardValue == 1){
+                    this.playerHandValue -= 10;
+                }
+                if(this.playerHandValue <= 21){
+                    break;
+                }
+            }
+            if(this.playerHandValue > 21){
+                console.log("You Bust");
+            }
+            if(this.playerHandValue == 21){
+                console.log("your at 21");
+            }
+        }
+    }
 }
 
 function createDeck(){
@@ -119,32 +190,7 @@ function createDeck(){
     return deck;
 }
 
-function hit(){
-    let card = deck.draw();
-    let cardLay = document.getElementById("CardLay");
-    let div = document.createElement("div");
-    let img = document.createElement("img");
-    div.appendChild(img)
-    img.src = "images/cards/"+card.suit+card.value+".png";
-    img.id = "Card";
-    cardLay.appendChild(div);
-    orderCardLay();
-}
 
-function orderCardLay(){
-    let cardLay = document.getElementById("CardLay");
-    let cardList = cardLay.children;
-    for(let i = 0; i<cardList.length; i++){
-        let card = cardList[i];
-        card.id = "card"+i;
-        let _card = document.getElementById("card"+i);
-        _card.style.position = "absolute";
-        _card.style.width = "10vw";
-        _card.style.height = "14.52vw";
-        let leftOffSet = ((i+1)/(cardList.length+1)*100)-10;
-        _card.style.left = leftOffSet+"vw";
-    }
-}
 let deck = createDeck();
 let game = new BlackJackGame(deck);
 game.startGame();

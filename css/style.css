@@ -48,16 +48,22 @@ button:active{
     right: 40%;
 }
 
-#CardLay{
+#DealerCardLay{
+    position: absolute;
+    width: 90vw;
+    height: 14.52vw;
+    top: 25vh;
+    }
+
+#PlayerCardLay{
 position: absolute;
 width: 90vw;
 height: 14.52vw;
-top: 50vh;
+bottom: 30vh;
 }
 
 #Card{
     position: absolute;
     width: 10vw;
     height: 14.52vw;
-    
 }
