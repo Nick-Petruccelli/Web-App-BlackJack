@@ -59,6 +59,8 @@ class BlackJackGame{
         this.deck = deck;
         this.playerHandValue = 0;
         this.dealerHandValue = 0;
+        this.playerHasBust = false;
+        this.dealerHasBust = false;
         this.playerCards = [];
         this.dealersCards = [];
         this.playerWins = 0;
@@ -80,8 +82,8 @@ class BlackJackGame{
             img.id = "Card";
             playerHand.appendChild(div);
             div.style.position = "absolute";
-            div.style.width = "10vw";
-            div.style.height = "14.52vw";
+            div.style.width = "50%";
+            div.style.height = "100%";
             let leftOffSet = (i/2)*100;
             div.style.left = leftOffSet+"%";
         }
@@ -96,11 +98,12 @@ class BlackJackGame{
         img.id = "Card";
         dealerHand.appendChild(div);
         div.style.position = "absolute";
-        div.style.width = "10vw";
-        div.style.height = "14.52vw";
+        div.style.width = "50%";
+        div.style.height = "100%";
         div.style.left = "0";
 
         card = this.deck.draw();
+        this.dealersCards.push(card);
         this.dealersDownCard = card;
         div = document.createElement("div");
         img = document.createElement("img");
@@ -109,9 +112,10 @@ class BlackJackGame{
         img.id = "Card";
         dealerHand.appendChild(div);
         div.style.position = "absolute";
-        div.style.width = "10vw";
-        div.style.height = "14.52vw";
+        div.style.width = "50%";
+        div.style.height = "100%";
         div.style.left = "50%";
+        div.id = "DealersDownCard";
     }
 
     hit(){
@@ -130,9 +134,26 @@ class BlackJackGame{
     }
 
     stand(){
-        let dealerUpCardValue = document.getElementById("DealerHand").children[0].value;
+        let downCardFace = document.getElementById("DealersDownCard").children[0];
+        downCardFace.src = "images/cards/"+this.dealersDownCard.suit+this.dealersDownCard.value+".png";
+
+        if(this.playerHasBust){
+            this.scoreDealerHand();
+            this.displayResults();
+            return void 0;
+        }
+
+        let dealerHasAce;
+        for(let i =0; i<this.dealersCards.length; i++){
+            let card = this.dealersCards[i];
+            if(card.value == 1){
+                dealerHasAce = true;
+                break
+            }
+        }
+        
         let dealerStand;
-        if(dealerUpCardValue = 1){
+        if(dealerHasAce){
             dealerStand = 17;
         }else{
             dealerStand = 16;
@@ -150,8 +171,9 @@ class BlackJackGame{
             cardLay.appendChild(div);
             game.orderDealerCardLay();
         }
-        this.dealersCards.push(this.dealersDownCard);
         this.scoreDealerHand();
+
+        this.displayResults();
     }
 
     orderDealerCardLay(){
@@ -162,10 +184,11 @@ class BlackJackGame{
             card.id = "card"+i;
             let _card = document.getElementById("card"+i);
             _card.style.position = "absolute";
-            _card.style.width = "10vw";
-            _card.style.height = "14.52vw";
-            let leftOffSet = ((i+1)/(cardList.length+1)*100)-10;
-            _card.style.left = leftOffSet+"vw";
+            _card.style.width = "5vw";
+            _card.style.height = "7.26vw";
+            let leftOffSet = ((i+1)/(cardList.length+1)*100);
+            _card.style.left = leftOffSet+"%";
+            _card.style.marginLeft = "-2.5vw";
         }
     }
 
@@ -178,10 +201,11 @@ class BlackJackGame{
             card.id = "card"+i;
             let _card = document.getElementById("card"+i);
             _card.style.position = "absolute";
-            _card.style.width = "10vw";
-            _card.style.height = "14.52vw";
-            let leftOffSet = ((i+1)/(cardList.length+1)*100)-10;
-            _card.style.left = leftOffSet+"vw";
+            _card.style.width = "5vw";
+            _card.style.height = "7.26vw";
+            let leftOffSet = ((i+1)/(cardList.length+1)*100);
+            _card.style.left = leftOffSet+"%";
+            _card.style.marginLeft = "-2.5vw";
         }
     }
 
@@ -209,7 +233,7 @@ class BlackJackGame{
                 }
             }
             if(this.playerHandValue > 21){
-                console.log("You Bust");
+                this.playerHasBust = true;
             }
             if(this.playerHandValue == 21){
                 console.log("your at 21");
@@ -219,7 +243,6 @@ class BlackJackGame{
 
     scoreDealerHand(){
         this.dealerHandValue = 0;
-        console.log(this.dealersCards);
         for(let i = 0; i<this.dealersCards.length; i++){
             let cardValue = this.dealersCards[i].value;
             if(cardValue == 1){
@@ -242,12 +265,41 @@ class BlackJackGame{
                 }
             }
             if(this.dealerHandValue > 21){
-                console.log("Dealer Bust");
+                this.dealerHasBust = true;
             }
             if(this.dealerHandValue == 21){
                 console.log("Dealers at 21");
             }
         }
+    }
+
+    displayResults(){
+        let resultText;
+       
+        if(this.playerHasBust){
+            resultText = document.createTextNode("You bust, the dealer wins. Do you want to play again?");
+            this.dealerWins++;
+        }else if(this.dealerHasBust){
+            resultText = document.createTextNode("The dealer bust, you win! Do you want to play again?");
+            this.playerWins++;
+        }else if(this.dealerHandValue == this.playerHandValue){
+            resultText = document.createTextNode("The dealers hand is equal to yours, tie game. Do you want to play again?");
+        }else if(this.dealerHandValue > this.playerHandValue){
+            resultText = document.createTextNode("The dealers hand has a higher value, dealer wins. Do you want to play again?");
+            this.dealerWins++
+        }else{
+            resultText = document.createTextNode("Your hand has a higher value, you win!\n Do you want to play again?");
+            this.playerWins++
+        }
+        let gameWindow = document.getElementById("GameWindow");
+        let result = document.createElement("div");
+        gameWindow.appendChild(result);
+        result.appendChild(resultText);
+        result.id = "ResultText";
+        let leftOffSet = -(resultText.length/2)*6;
+        result.style.marginLeft = leftOffSet+"px"
+
+        
     }
 }
 
