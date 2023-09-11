@@ -55,8 +55,8 @@ class Deck{
 }
 
 class BlackJackGame{
-    constructor(deck){
-        this.deck = deck;
+    constructor(){
+        this.deck;
         this.playerHandValue = 0;
         this.dealerHandValue = 0;
         this.playerHasBust = false;
@@ -71,6 +71,9 @@ class BlackJackGame{
 
     startGame(){
         let playerHand = document.getElementById("PlayerHand");
+        this.deck = new Deck();
+        this.deck.instantiate();
+        this.deck.shuffle();
 
         for(let i = 0; i < 2; i++){
             let card = this.deck.draw();
@@ -326,6 +329,7 @@ class BlackJackGame{
         this.playerCards = [];
         this.dealersCards = [];
         this.playersTurnOver = false;
+        this.deck.cardList = [];
 
         let playersCardLay = document.getElementById("PlayerCardLay");
         while(playersCardLay.firstChild){
@@ -357,14 +361,5 @@ class BlackJackGame{
     }
 }
 
-function createDeck(){
-    let deck = new Deck();
-    deck.instantiate();
-    deck.shuffle();
-    return deck;
-}
-
-
-let deck = createDeck();
-let game = new BlackJackGame(deck);
+let game = new BlackJackGame();
 game.startGame();
