@@ -120,6 +120,10 @@ class BlackJackGame{
         div.style.height = "100%";
         div.style.left = "50%";
         div.id = "DealersDownCard";
+
+        if(this.playerHandValue >= 21){
+            this.stand();
+        }
     }
 
     hit(){
@@ -138,6 +142,9 @@ class BlackJackGame{
         img.id = "Card";
         cardLay.appendChild(div);
         this.orderPlayerCardLay();
+        if(this.playerHandValue >= 21){
+            this.stand();
+        }
     }
 
     stand(){
