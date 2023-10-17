@@ -1,0 +1,97 @@
+#GameWindow{
+    width: 90vw;
+    height: 95vh;
+    border: 1px solid black;
+    margin: auto;
+    position: relative;
+}
+
+button{
+    font: inherit;
+    border: none;
+    cursor: pointer;
+    background: bisque;
+    text-align: center;
+    color: black;
+    font-size: xx-large;
+}
+button:hover{
+    background: wheat;
+}
+button:active{
+    background: burlywood;
+}
+
+#PlayerHand{
+    position: absolute;
+    height: 7.26vw;
+    width: 10vw;
+    bottom: 10vh;
+    left: 50%;
+    margin-left: -5vw;
+}
+#DealerHand{
+    position: absolute;
+    height: 7.26vw;
+    width: 10vw;
+    top: 5vh;
+    left: 50%;
+    margin-left: -5vw;
+}
+
+#Hit{
+    position: absolute;
+    bottom: 0;
+    left: 40%;
+}
+#Stand{
+    position: absolute;
+    bottom: 0;
+    right: 40%;
+}
+
+#DealerCardLay{
+    position: absolute;
+    width: 90vw;
+    height: 7.26vw;
+    top: 25%;
+}
+
+#PlayerCardLay{
+position: absolute;
+width: 90vw;
+height: 7.26vw;
+bottom: 30%;
+}
+
+#Card{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+#ResultText{
+    background-color: bisque;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+}
+
+#PlayAgainButton{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -70px;
+}
+
+#PlayerWins{
+    position: absolute;
+    bottom: 0%;
+    left: 0%;
+}
+
+#DealerWins{
+    position: absolute;
+    top: 0%;
+    left: 0%;
+}
