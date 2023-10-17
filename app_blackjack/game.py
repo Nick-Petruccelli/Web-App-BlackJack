@@ -1,10 +1,13 @@
 from typing import List, field
-from hand import Hand
+
 from deck import Deck
+from hand import Hand
+
 
 class Game:
     num_players: int
     deck: Deck
     dealer_hand: Hand
-    players_hands: List[Hand] = field(defualt_factory = list)
 
+    def start_game(deck, num_players) -> None:
+        ...
