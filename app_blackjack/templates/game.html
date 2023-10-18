@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Black Jack</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <div id="GameWindow">
+        <div id="PlayersHands"></div>
+        <div id="DealersHand"></div>
+        <div id="DealerCardLay"></div>
+        <div id="PlayerCardLay"></div>
+
+        <button id="Hit" onclick="game.hit()">Hit</button>
+        <button id="Stand" onclick="game.stand()">Stand</button>
+    </div>
+</body>
+<script src="../static/js/mainGame.js"></script>
+</html>
