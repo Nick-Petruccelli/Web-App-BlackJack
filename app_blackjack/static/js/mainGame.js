@@ -148,14 +148,18 @@ class BlackJackGame{
 
         $.ajax(
             {
-                url: '/host',
+                url: '/player_input',
                 type: 'POST',
-                contentType: 'application.json',
-                data: JSON.stringify({_playerCards: this.playerCards}),
-                success: function(response) {
-                    console.log(response)
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    is_hit: true,
+                    is_stand: false,
+                    player_id: 0
+                }),
+                success: function(resopnse) {
+                    console.log(resopnse)
                 },
-                error: function(response) {console.log("miss")}
+                error: function(resopnse) {console.log("miss")}
             }
         );
     }
@@ -202,6 +206,23 @@ class BlackJackGame{
         this.scoreDealerHand();
 
         this.displayResults();
+
+        $.ajax(
+            {
+                url: '/player_input',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    is_hit: false,
+                    is_stand: true,
+                    player_id: 0
+                }),
+                success: function(resopnse) {
+                    console.log(resopnse)
+                },
+                error: function(resopnse) {console.log("miss")}
+            }
+        );
     }
 
     orderDealerCardLay(){

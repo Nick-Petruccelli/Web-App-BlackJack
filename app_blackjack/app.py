@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, redirect, url_for, request, jsonify
+import json
 
 app = Flask(__name__)
 players: int
@@ -7,8 +8,14 @@ players: int
 def home():
     return render_template('index.html')
 
-@app.route('/hit', methods= ['POST'])
-def hit():
+@app.route('/player_input', methods= ['POST'])
+def player_input():
+    data = request.json
+    
+    with open('player_inputs.json', 'w') as outfile:
+        json.dump(data, outfile)
+
+    return {"response": "success"}
     
 
 if __name__ == '__main__':

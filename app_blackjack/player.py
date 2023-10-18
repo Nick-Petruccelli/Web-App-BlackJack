@@ -1,24 +1,37 @@
-from dataclases import dataclass
 from hand import Hand
+from card import Card
 
 
-@dataclass
+
 class Player:
-    bool hasBust
-    bool standing
-    Hand hand
+    has_bust: bool
+    standing: bool
+    hand: Hand
+    id: int
+    next_id = 0
 
-    def has_bust(self)->bool:
-        self.hand.score_hand()
-        if self.hand.score > 21:
-            hasBust = true
-            return true
-        hasBust = false
-        return false
+    def __init__(self, has_bust: bool, standing: bool, hand: Hand):
+        self.has_bust = has_bust
+        self.standing = standing
+        self.hand = hand
+        self.id = Player.next_id
+        Player.next_id = Player.next_id+1
+
+    def update_bust(self)->None:
+        if self.hand.score_hand() > 21:
+            self.has_bust = True
+        else:    
+            self.has_bust = False
 
     def stand(self)->None:
-        standing = true
+        self.standing = True
 
 
 if __name__ == "__main__":
-    return
+    p = Player(False, False, Hand([Card('d',10),Card('d',6),Card('h',10)]))
+    print(p.has_bust)
+    p.update_bust()
+    print(p.has_bust)
+    print(p.id)
+    p2 = Player(False, False, Hand([]))
+    print(p2.id)
