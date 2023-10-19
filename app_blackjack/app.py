@@ -33,10 +33,16 @@ def enter_game(user):
         if data[player] == '':
             data[player] = user
             break
+    
     with open('players.json', 'w') as outfile:
         json.dump(data, outfile)
     return redirect(url_for("game"))
-    
+
+@app.route('/get_players', methods=['POST'])
+def get_players():
+    with open('players.json', 'r') as openfile:
+        data = json.load(openfile)
+    return data
 
 if __name__ == '__main__':
     app.run(debug=True)
