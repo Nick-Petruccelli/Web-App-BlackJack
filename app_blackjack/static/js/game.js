@@ -1,31 +1,30 @@
 class Player{
     constructor(username){
         this.username = username;
-
-        let playerData=$.ajax(
-            {
-                url: '/get_players',
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify({
-                    message: "success"
-                }),
-                datatype: "JSON",
-                success: function(resopnse) {
-                    console.log(resopnse);
-                    
-                },
-                error: function(resopnse) {console.log("miss")}
-            }
-        ).responseJSON;
-        
-        
-        console.log(playerData);
         this.id = -1;
+    }
+
+    async setID(){
+        let playerData = await fetch(
+            '/get_players', {
+                method: 'post',
+                
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }
+        ).then(
+            response => response.json()
+        ).then(function(response){
+            return response;
+        }).catch(function(error){
+            console.log(error);
+        })
+
         let idx = 0;
         for(const player in playerData){
             console.log(playerData[player]);
-            if(playerData[player] == username){
+            if(playerData[player] == this.username){
                 this.id = idx;
                 break;
             }
@@ -35,42 +34,37 @@ class Player{
     }
 
     hit(){
-        $.ajax(
-            {
-                url: '/player_input',
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify({
+        fetch(
+            '/player_input', {
+                method: 'post',
+                body: JSON.stringify({
                     is_hit: true,
                     is_stand: false,
                     player_id: this.id
                 }),
-                success: function(resopnse) {
-                    console.log(resopnse)
-                },
-                error: function(resopnse) {console.log("miss")}
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             }
-        );
+        )
     }
 
     stand(){
-        $.ajax(
-            {
-                url: '/player_input',
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify({
+        fetch(
+            '/player_input', {
+                method: 'post',
+                body: JSON.stringify({
                     is_hit: false,
                     is_stand: true,
                     player_id: this.id
                 }),
-                success: function(resopnse) {
-                    console.log(resopnse)
-                },
-                error: function(resopnse) {console.log("miss")}
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             }
-        );
+        )
     }
 }
 
 let player = new Player("nick")
+player.setID()

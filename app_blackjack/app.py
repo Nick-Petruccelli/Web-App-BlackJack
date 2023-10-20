@@ -14,7 +14,7 @@ def home():
 @app.route('/player_input', methods= ['POST'])
 def player_input():
     data = request.json
-    
+
     with open('player_inputs.json', 'w') as outfile:
         json.dump(data, outfile)
 
