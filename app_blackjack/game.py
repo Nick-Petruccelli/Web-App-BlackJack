@@ -26,7 +26,7 @@ class Game:
 
     def deal_cards(self, deck) -> None:
         self.players.clear()
-        with open('players.json', 'r') as openfile:
+        with open('data/players.json', 'r') as openfile:
             data  = json.load(openfile)
         
         for player in data:
@@ -37,6 +37,8 @@ class Game:
                 player.hand.add_card(deck)
             self.dealer_hand.add_card(deck)
         
+        self.update_game_data()
+        
     def play_round(self)->None:
         #players turn
         for player in self.players:
@@ -46,7 +48,7 @@ class Game:
                 inputs_player_id = -1
                 while(inputs_player_id != player.id):
                     try:
-                        with open('player_inputs.json', 'r') as openfile:
+                        with open('data/player_inputs.json', 'r') as openfile:
                             data = json.load(openfile)
                     except:
                         ...
@@ -99,6 +101,25 @@ class Game:
                     players_playing = False
         
         self.dealers_turn()
+    
+    def update_game_data(self):
+        
+        with open('data/current_game_data.json', 'r') as openfile:
+            data = json.load(openfile)
+
+        data["dealer_hand"].clear()
+        for card in self.dealer_hand.cards:
+            data["dealer_hand"].append([card.suit, card.value])
+
+        for player in self.players:
+            data[f"player{player.id}_hand"].clear()
+            for card in player.hand.cards:
+                data[f"player{player.id}_hand"].append([card.suit, card.value])
+
+        data["Version"] = data["Version"]+1
+        
+        with open('data/current_game_data.json', 'w') as outfile:
+            json.dump(data, outfile)
 
 if __name__ == "__main__":
     game = Game()

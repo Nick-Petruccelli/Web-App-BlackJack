@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request, jsonify
+from flask import Flask, render_template, redirect, url_for, request, jsonify, Response
 import json
 
 app = Flask(__name__)
@@ -15,7 +15,7 @@ def home():
 def player_input():
     data = request.json
 
-    with open('player_inputs.json', 'w') as outfile:
+    with open('data/player_inputs.json', 'w') as outfile:
         json.dump(data, outfile)
 
     return {"response": "success"}
@@ -27,22 +27,41 @@ def game():
 @app.route('/<user>')
 def enter_game(user):
     #add user to player json
-    with open('players.json', 'r') as openfile:
+    with open('data/players.json', 'r') as openfile:
         data = json.load(openfile)
     for player in data:
         if data[player] == '':
             data[player] = user
             break
     
-    with open('players.json', 'w') as outfile:
+    with open('data/players.json', 'w') as outfile:
         json.dump(data, outfile)
     return redirect(url_for("game"))
 
 @app.route('/get_players', methods=['POST'])
 def get_players():
-    with open('players.json', 'r') as openfile:
+    with open('data/players.json', 'r') as openfile:
         data = json.load(openfile)
     return data
+
+@app.route('/stream_game_data')
+def stream_game_data():
+    def get_data():
+        with open('data/previous_game_data.json', 'r') as openfile:
+                previous_data = json.load(openfile)
+        while True:
+            try:
+                with open('data/current_game_data.json', 'r') as openfile:
+                    current_data = json.load(openfile)
+            except:
+                ...
+            if previous_data["Version"] != current_data["Version"]:
+                yield current_data
+                with open('data/previous_game_data', 'w') as outfile:
+                    json.dump(current_data, outfile)
+    return Response(get_data(), mimetype='application/json')
+
+            
 
 if __name__ == '__main__':
     app.run(debug=True)
