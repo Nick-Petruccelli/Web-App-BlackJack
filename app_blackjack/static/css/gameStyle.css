@@ -1,0 +1,118 @@
+#GameWindow{
+    width: 90vw;
+    height: 95vh;
+    border: 1px solid black;
+    margin: auto;
+    position: relative;
+}
+
+button{
+    font: inherit;
+    border: none;
+    cursor: pointer;
+    background: bisque;
+    text-align: center;
+    color: black;
+    font-size: xx-large;
+}
+button:hover{
+    background: wheat;
+}
+button:active{
+    background: burlywood;
+}
+
+#DealerHand{
+    position: absolute;
+    height: 7.26vw;
+    width: 10vw;
+    top: 5vh;
+    left: 50%;
+    margin-left: -5vw;
+}
+
+#DealerCardLay{
+    position: absolute;
+    height: 90vw;
+    width: 10vw;
+    top: 15vh;
+    left: 50%;
+    margin-left: -5vw;
+}
+
+#Player0Hand{
+    position: absolute;
+    height: 7.26vw;
+    width: 10vw;
+    bottom: 10vh;
+    left: 80%;
+    margin-left: -5vw;
+}
+#Player1Hand{
+    position: absolute;
+    height: 7.26vw;
+    width: 10vw;
+    bottom: 10vh;
+    left: 60%;
+    margin-left: -5vw;
+}
+#Player2Hand{
+    position: absolute;
+    height: 7.26vw;
+    width: 10vw;
+    bottom: 10vh;
+    left: 40%;
+    margin-left: -5vw;
+}
+#Player3Hand{
+    position: absolute;
+    height: 7.26vw;
+    width: 10vw;
+    bottom: 10vh;
+    left: 20%;
+    margin-left: -5vw;
+}
+
+#Player0CardLay{
+    position: absolute;
+    height: 90vw;
+    width: 5vw;
+    bottom: 20vh;
+    left: 80%;
+    margin-left: -2.5vw;
+}
+#Player1CardLay{
+    position: absolute;
+    height: 90vw;
+    width: 5vw;
+    bottom: 20vh;
+    left: 60%;
+    margin-left: -2.5vw;
+}
+#Player2CardLay{
+    position: absolute;
+    height: 90vw;
+    width: 5vw;
+    bottom: 20vh;
+    left: 40%;
+    margin-left: -2.5vw;
+}
+#Player3CardLay{
+    position: absolute;
+    height: 90vw;
+    width: 5vw;
+    bottom: 20vh;
+    left: 20%;
+    margin-left: -2.5vw;
+}
+
+#Hit{
+    position: absolute;
+    bottom: 0;
+    left: 40%;
+}
+#Stand{
+    position: absolute;
+    bottom: 0;
+    right: 40%;
+}

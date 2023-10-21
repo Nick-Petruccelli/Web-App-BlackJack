@@ -4,14 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Black Jack</title>
-    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/gameStyle.css">
 </head>
 <body>
     <div id="GameWindow">
-        <div id="PlayersHands"></div>
-        <div id="DealersHand"></div>
+        <div id="Player0Hand"></div>
+        <div id="Player1Hand"></div>
+        <div id="Player2Hand"></div>
+        <div id="Player3Hand"></div>
+        <div id="DealerHand"></div>
         <div id="DealerCardLay"></div>
-        <div id="PlayerCardLay"></div>
+        <div id="Player0CardLay"></div>
+        <div id="Player1CardLay"></div>
+        <div id="Player2CardLay"></div>
+        <div id="Player3CardLay"></div>
 
         <button id="Hit" onclick="player.hit()">Hit</button>
         <button id="Stand" onclick="player.stand()">Stand</button>
